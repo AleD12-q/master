@@ -50,11 +50,8 @@ public class IndexBuilder {
         indices = new HashMap<>();
 
         List<Page> pages = site.getPages().stream()
-                .filter(page1 -> page1.getCode() == Node.OK)
-                .sorted(Comparator.comparingInt(Page::getId))
-                .toList();
-
-
+                .filter(p1 -> p1.getCode() == Node.OK)
+                .sorted(Comparator.comparingInt(Page::getId)).toList();
         for (Page page : pages) {
             if (SiteBuilder.isStopping()) {
                 return;

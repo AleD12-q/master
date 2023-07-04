@@ -8,6 +8,7 @@ import searchengine.builders.PageBuilder;
 import searchengine.builders.SiteBuilder;
 import searchengine.config.ServerConfig;
 import searchengine.response.ErrorResponse;
+import searchengine.response.Response;
 
 @RestController
 public class IndexingController {
@@ -52,4 +53,5 @@ public class IndexingController {
         }
         return new ErrorResponse(result);
     }
-}
+    }
+

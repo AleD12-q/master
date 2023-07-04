@@ -2,7 +2,7 @@ package searchengine.builders;
 
 import lombok.extern.slf4j.Slf4j;
 import searchengine.config.Props;
-import searchengine.dto.statistics.StatisticsResponse;
+import searchengine.response.StatisticsResponse;
 import searchengine.repository.Repos;
 import searchengine.model.Site;
 

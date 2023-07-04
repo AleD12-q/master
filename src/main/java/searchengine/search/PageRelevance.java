@@ -1,8 +1,7 @@
-package searchengine.builders;
+package searchengine.search;
 
 import lombok.Data;
 import searchengine.model.Page;
-import searchengine.searchFolder.LemmaGear;
 
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.List;
 @Data
 public class PageRelevance {
     private Page page;
-    private List<LemmaGear> lemmaGears = new ArrayList<>();
+    private List<LemmaRank> lemmaRanks = new ArrayList<>();
     private float absoluteRelevance;
     private float relativeRelevance;
 

@@ -2,7 +2,6 @@ package searchengine.response;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import searchengine.controllers.Response;
 
 import java.util.ArrayList;
 import java.util.List;

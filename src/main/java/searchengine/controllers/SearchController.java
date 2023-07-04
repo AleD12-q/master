@@ -5,8 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import searchengine.searchFolder.SearchListen;
-import searchengine.searchFolder.SearchRequest;
+import searchengine.response.Response;
+import searchengine.search.SearchListen;
+import searchengine.search.SearchRequest;
 import searchengine.response.ErrorResponse;
 import searchengine.response.SearchRes;
 

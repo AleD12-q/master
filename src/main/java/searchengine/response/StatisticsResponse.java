@@ -1,4 +1,4 @@
-package searchengine.dto.statistics;
+package searchengine.response;
 
 import lombok.Data;
 
@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import searchengine.model.Site;
 import searchengine.builders.SiteBuilder;
-import searchengine.controllers.Response;
 import searchengine.repository.Repos;
 
 import java.time.ZoneOffset;

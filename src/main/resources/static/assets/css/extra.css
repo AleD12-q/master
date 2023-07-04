@@ -729,7 +729,7 @@
 }
 .Statistics-title {
   display: block;
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .Statistics-description {
   font-size: 16px;
@@ -1141,4 +1141,7 @@
   left: 0;
   bottom: 0rem;
   right: 0;
+}
+.HiddenElem {
+  display: none;
 }

@@ -35,7 +35,7 @@ public class IndexRepositoryImpl implements IndexRepositoryCustom {
             String sql = Props.getInst().getMultiInsertString() +
                     " values " + insertBuilder;
             insertBuilder.setLength(0);
-            Query query = entityManager.createQuery(sql);
+            Query query = entityManager.createNativeQuery(sql);
             query.executeUpdate();
             if (currIndex % SAVING_PORTION == 0) {
                 log.info(TABS + "Сайт \"" + siteName + "\": " +

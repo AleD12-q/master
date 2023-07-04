@@ -1,4 +1,4 @@
-package searchengine.searchFolder;
+package searchengine.search;
 import org.springframework.stereotype.Component;
 import searchengine.response.SearchRes;
 
@@ -17,7 +17,7 @@ public class SearchListen implements Runnable {
     }
 
     public SearchListen() {
-        new Thread(this, "SearchListener").start();
+        new Thread(this, "SearchListen").start();
     }
     @Override
     public void run() {

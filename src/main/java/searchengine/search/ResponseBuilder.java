@@ -1,7 +1,6 @@
-package searchengine.searchFolder;
+package searchengine.search;
 
 import lombok.extern.slf4j.Slf4j;
-import searchengine.builders.PageRelevance;
 import searchengine.model.Index;
 import searchengine.model.Site;
 import searchengine.repository.Repos;
@@ -27,7 +26,7 @@ public class ResponseBuilder implements Runnable {
     private Set<PageRelevance> relevanceSet;
     private final Map<Integer, PageRelevance> relevanceMap = new HashMap<>();
     private List<PageRelevance> relevanceList;
-    private searchengine.searchFolder.LemmaGear LemmaGear;
+    private LemmaRank LemmaRank;
 
 
     public ResponseBuilder(SearchRequest request) {
@@ -155,8 +154,8 @@ public class ResponseBuilder implements Runnable {
                 relevance.setPage(index.getPage());
                 relevanceMap.put(index.getPage().getId(), relevance);
             }
-            LemmaGear lemmaGear = new LemmaGear(lemma, index.getRank());
-            relevance.getLemmaGears().add(LemmaGear);
+            LemmaRank lemmaRank = new LemmaRank(lemma, index.getRank());
+            relevance.getLemmaRanks().add(LemmaRank);
         }
         relevanceSet = new HashSet<>(relevanceMap.values());
     }
@@ -171,8 +170,8 @@ public class ResponseBuilder implements Runnable {
             if (!relevanceSet.contains(relevance)) {
                 continue;
             }
-            LemmaGear lemmaRank = new LemmaGear(lemma, index.getRank());
-            relevance.getLemmaGears().add(lemmaRank);
+            LemmaRank lemmaRank = new LemmaRank(lemma, index.getRank());
+            relevance.getLemmaRanks().add(lemmaRank);
             lemmaRelevances.add(relevance);
         }
         relevanceSet.retainAll(lemmaRelevances);
@@ -185,8 +184,8 @@ public class ResponseBuilder implements Runnable {
         float maxRelevance = 0;
         for (PageRelevance relevance : relevanceSet) {
             float absRelevance = 0;
-            for (LemmaGear lemmaGear : relevance.getLemmaGears()) {
-                absRelevance += lemmaGear.getGear();
+            for (LemmaRank lemmaRank : relevance.getLemmaRanks()) {
+                absRelevance += lemmaRank.getRank();
             }
             relevance.setAbsoluteRelevance(absRelevance);
             if (absRelevance > maxRelevance) {

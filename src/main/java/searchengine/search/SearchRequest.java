@@ -1,4 +1,4 @@
-package searchengine.searchFolder;
+package searchengine.search;
 import lombok.Data;
 import searchengine.builders.Lemmaformatter;
 import searchengine.model.Site;

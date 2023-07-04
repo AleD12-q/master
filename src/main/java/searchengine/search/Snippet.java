@@ -1,4 +1,4 @@
-package searchengine.searchFolder;
+package searchengine.search;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

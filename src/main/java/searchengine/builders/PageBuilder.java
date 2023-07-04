@@ -20,6 +20,7 @@ public class PageBuilder implements Runnable {
     public static final String SITE_NOT_INDEXED = "Нельзя индексировать страницу " +
             "сайта, если сайт ещё не индексирован";
     public static final String RUNNING = "Индексация уже запущена";
+
     private final Site site;
     private List<Page> oldPages;
     private Page page = null;
@@ -58,8 +59,10 @@ public class PageBuilder implements Runnable {
         for (Index index : indexList) {
             indices.put(index.hashCode(), index);
         }
+
         IndexBuilder indexBuilder = new IndexBuilder(site, page, lemmas, indices);
         indexBuilder.fillLemmasAndIndices();
+
         List<Lemma> lemmasToDelete = new ArrayList<>();
         if (oldPages != null && oldPages.size() > 0) {
             List<Integer> oldPageIds = oldPages.stream().map(p -> p.getId()).toList();
@@ -76,6 +79,7 @@ public class PageBuilder implements Runnable {
         }
 
         Repos.lemmaRepo.deleteAllInBatch(lemmasToDelete);
+
         List<Index> pageIndices = new ArrayList<>();
         pageIndices.addAll(indices.values().stream()
                 .filter(index -> index.getPage().getId() == page.getId())
@@ -94,8 +98,10 @@ public class PageBuilder implements Runnable {
                 }
             }
         }
+
         SiteBuilder.getIndexingSites().remove(site.getUrl());
     }
+
     public static String indexPage(String stringUrl) {
         URL url;
         try {
@@ -109,10 +115,12 @@ public class PageBuilder implements Runnable {
         if (SiteBuilder.getIndexingSites().containsKey(home)) {
             return RUNNING;
         }
+
         if (!Props.getAllSiteUrls().contains(home)) {
             return NOT_FOUND;
         }
         Site site = Repos.siteRepo.findByUrlAndType(home, Site.INDEXED).orElse(null);
+
         if (path.isEmpty()) {
             SiteBuilder.buildSingleSite(home);
         } else {
@@ -126,6 +134,7 @@ public class PageBuilder implements Runnable {
             SiteBuilder.getIndexingSites().put(site.getUrl(), site);
             pageBuilder.run();
         }
+
         return OK;
     }
 }
