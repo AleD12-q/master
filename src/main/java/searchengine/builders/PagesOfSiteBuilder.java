@@ -47,7 +47,6 @@ public class PagesOfSiteBuilder extends RecursiveAction {
         }
         builders.forEach(ForkJoinTask::join);
     }
-
     private void takeABreak(int pauseInMsec) {
         Site site = node.getSite();
         synchronized (site) {
@@ -65,7 +64,6 @@ public class PagesOfSiteBuilder extends RecursiveAction {
             site.setLastPageReadingTime(System.currentTimeMillis());
         }
     }
-
     public static void build(Site site) {
         Node node = new Node(site, "/");
         PagesOfSiteBuilder builder = new PagesOfSiteBuilder(node);

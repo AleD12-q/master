@@ -2,7 +2,6 @@ server:
   port: 8080
   indexingAvailable: true
 
-#spring.profiles.active: mysql
 spring.profiles.active: mysql
 
 spring.jpa.show-sql: false
@@ -16,8 +15,6 @@ spring:
 
   messages.basename: lang.messages
 
-#  main:
-#    banner-mode: off
 
 logging:
   level.root: INFO
@@ -39,27 +36,19 @@ config:
     - url: http://radiomv.ru
       name: Милицейская волна
       pause: 0
-    - url: https://ipfran.ru
-      name: Институт прикладной физики Российской академии наук
+    - url: https://earth.google.com
+      name: GoogleEarth
       pause: 0
-    - url: https://dimonvideo.ru
-      name: DIMONVIDEO
+    - url: https://юургау.рф
+      name: юургау
       pause: 0
-    - url: https://nikoartgallery.com
-      name: Niko ART GALLERY
+    - url: https://lichess.org
+      name: Lichess
       pause: 0
-    - url: https://et-cetera.ru/mobile
-      name: Театр «Et Cetera»
-      pause: 0
-    - url: https://www.lutherancathedral.ru
-      name: Кафедральный собор святых Петра и Павла
-      pause: 0
-    - url: https://dombulgakova.ru
-      name: Булгаковскiй домъ
-      pause: 0
-    - url: https://www.svetlovka.ru
-      name: Светловка
+    - url: https://jut.su
+      name: jut.su
       pause: 0
     - url: https://www.lenta.ru
       name: Лента.ру
       pause: 500
+

@@ -64,7 +64,6 @@ public class SiteBuilder implements Runnable {
             indexingSite.get().setType(Site.REMOVING);
             Repos.siteRepo.saveAndFlush(indexingSite.get());
         }
-
         site = new Site();
         site.setName(Props.SiteProps.getNameByUrl(siteUrl));
         site.setUrl(siteUrl);
@@ -95,7 +94,6 @@ public class SiteBuilder implements Runnable {
             stopping = false;
         }
     }
-
     private void buildPagesLemmasAndIndices() {
         long begin = System.currentTimeMillis();
         Site prevSite;
@@ -108,7 +106,6 @@ public class SiteBuilder implements Runnable {
         if (isStopping()) {
             return;
         }
-
         log.info(IndexBuilder.TABS + "Сайт \"" + site.getName() + "\" построен за " +
                 (System.currentTimeMillis() - begin) / 1000 + " сек");
 
@@ -138,21 +135,18 @@ public class SiteBuilder implements Runnable {
             Repos.siteRepo.deleteByType(Site.REMOVING);
         }
     }
-
     public static void buildSite(String siteUrl) {
         synchronized (Executors.class) {
             if (executor == null) {
                 executor = Executors.newFixedThreadPool(forSitesThreadNumber);
             }
         }
-
         SiteBuilder siteBuilder = new SiteBuilder(siteUrl);
 
         Site processingSite = indexingSites.putIfAbsent(siteUrl, siteBuilder.site);
         if (processingSite != null) {
             return;
         }
-
         executor.execute(siteBuilder);
     }
 
@@ -160,24 +154,19 @@ public class SiteBuilder implements Runnable {
         if (!indexingSites.isEmpty()) {
             return IS_INDEXING;
         }
-
         List<Props.SiteProps> sitePropsList = Props.getInst().getSites();
         for (var siteProps : sitePropsList) {
             buildSite(siteProps.getUrl());
         }
         return !IS_INDEXING;
     }
-
-
     public static void buildSingleSite(String url) {
         String siteName = Props.SiteProps.getNameByUrl(url);
         if (siteName.equals("")) {
             return;
         }
-
         buildSite(url);
     }
-
     public static boolean stopIndexing() {
         if (indexingSites.isEmpty()) {
             return !IS_INDEXING;
@@ -187,7 +176,6 @@ public class SiteBuilder implements Runnable {
 
         return IS_INDEXING;
     }
-
     public static StatisticsResponse getStatistics() {
         return new StatisticsResponse();
     }

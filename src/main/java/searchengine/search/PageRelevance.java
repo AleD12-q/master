@@ -14,7 +14,6 @@ public class PageRelevance {
     private List<LemmaRank> lemmaRanks = new ArrayList<>();
     private float absoluteRelevance;
     private float relativeRelevance;
-
     @Override
     public int hashCode() {
         return page.getId();

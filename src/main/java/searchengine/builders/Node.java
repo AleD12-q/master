@@ -92,24 +92,24 @@ public class Node {
 
             int errorCode;
             if (message.contains("UnsupportedMimeTypeException")) {
-                errorCode = 415;    // Ссылка на pdf, jpg, png документы
+                errorCode = 415;
             } else if (message.contains("Status=401")) {
-                errorCode = 401;    // На несуществующий домен
+                errorCode = 401;
             } else if (message.contains("UnknownHostException")) {
                 errorCode = 401;
             } else if (message.contains("Status=403")) {
-                errorCode = 403;    // Нет доступа, 403 Forbidden
+                errorCode = 403;
             } else if (message.contains("Status=404")) {
                 if (fromPageBuilder) {
                     return null;
                 }
-                errorCode = 404;    // // Ссылка на pdf-документ, несущ. страница, проигрыватель
+                errorCode = 404;
             } else if (message.contains("Connection timed out")) {
                 errorCode = 408;
             } else if (message.contains("Status=500")) {
-                errorCode = 401;    // Страница авторизации
+                errorCode = 401;
             } else if (message.contains("ConnectException: Connection refused")) {
-                errorCode = 500;    // ERR_CONNECTION_REFUSED, не удаётся открыть страницу
+                errorCode = 500;
             } else if (message.contains("SSLHandshakeException")) {
                 errorCode = 525;
             } else {
@@ -164,10 +164,8 @@ public class Node {
         while (lastNodes.size() > Props.getInst().getRepeatedPageCount()) {
             lastNodes.poll();
         }
-
         return children;
     }
-
     private void viewTagsA(Element body, List<Node> children) {
         Elements links = body.getElementsByTag("a");
         linkCycle:
@@ -208,8 +206,7 @@ public class Node {
         Elements elements = body.getElementsByAttribute("onclick");
         for (Element elem : elements) {
             String attrContent = elem.attr("onclick").intern();
-            if (attrContent.startsWith("window.location") ||
-                    attrContent.startsWith("location.href")) {
+            if (attrContent.startsWith("window.location") || attrContent.startsWith("location.href")) {
                 int begin = attrContent.indexOf("'") + 1;
                 int end = attrContent.indexOf("'", begin);
                 attrContent = attrContent.substring(begin, end);

@@ -44,11 +44,9 @@ public class IndexBuilder {
         indexBuilder.buildIndex();
         indexBuilder.saveLemmasAndIndices();
     }
-
     private void buildIndex() {
         lemmas = new HashMap<>();
         indices = new HashMap<>();
-
         List<Page> pages = site.getPages().stream()
                 .filter(p1 -> p1.getCode() == Node.OK)
                 .sorted(Comparator.comparingInt(Page::getId)).toList();
@@ -122,12 +120,9 @@ public class IndexBuilder {
         synchronized (Lemma.class) {
             Repos.lemmaRepo.saveAllAndFlush(lemmaCollection);
         }
-
         log.info(TABS + "Сайт \"" + site.getName() + "\": cохраняем индексы");
         saveIndicesByMultipleInsert();
-
-        log.info(TABS + "Сайт \"" + site.getName() + "\": " +
-                "всего сохранено страниц - " + site.getPages().size());
+        log.info(TABS + "Сайт \"" + site.getName() + "\": " + "всего сохранено страниц - " + site.getPages().size());
     }
 
     private void saveIndicesByMultipleInsert() {

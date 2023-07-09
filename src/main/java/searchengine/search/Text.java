@@ -63,7 +63,6 @@ public class Text {
         builder.append(text.substring(indexInText));
         text = builder.toString();
     }
-
     private static class Fragment {
         private String text;
         private int startPosition;
@@ -71,7 +70,6 @@ public class Text {
         private SeparatorType leftSeparator;
         private SeparatorType rightSeparator;
     }
-
     public void formCompositionOfFragments(StringBuilder builder) {
         for (Fragment fragment : fragments) {
             String prefix = "";
@@ -89,7 +87,6 @@ public class Text {
         }
         builder.append(postfix);
     }
-
     public void createFragments() {
         for (int queryWordIndex = 0; queryWordIndex < queryWordIndices.size(); queryWordIndex++) {
             Fragment fragment = new Fragment();
@@ -105,7 +102,6 @@ public class Text {
             fragments.add(fragment);
         }
     }
-
     private int findFragmentEnd(int queryWordIndex) {
         int processedQueryWords = 1;
         position = queryWordIndices.get(queryWordIndex);
@@ -133,7 +129,6 @@ public class Text {
         rightSeparatorType = SeparatorType.SEPARATOR;
         return processedQueryWords;
     }
-
     private void findFragmentStart(int queryWordIndex) {
         position = queryWordIndices.get(queryWordIndex);
         for (int count = 0; count < SEPARATORS_BEFORE_COUNT; count++) {
@@ -159,12 +154,10 @@ public class Text {
         }
         leftSeparatorType = SeparatorType.SEPARATOR;
     }
-
     private char getChar() {
         currentChar = text.charAt(position);
         return currentChar;
     }
-
     private void stepToWordBegin() {
         while (position < text.length()) {
             if (!allSeparators.contains(getChar())) {
@@ -173,7 +166,6 @@ public class Text {
             position++;
         }
     }
-
     private void missSeparatorsLeft() {
         while (--position >= 0) {
             if (!separators.contains(getChar())) {
@@ -182,7 +174,6 @@ public class Text {
         }
         position = 0;
     }
-
     private void missSeparatorsRight() {
         if (sentanceEnds.contains(getChar())) {
             return;
@@ -193,7 +184,6 @@ public class Text {
             }
         }
     }
-
     private void missOneWordRight() {
         while (!allSeparators.contains(getChar())) {
             if (++position == text.length()) {
@@ -201,7 +191,6 @@ public class Text {
             }
         }
     }
-
     private void missOneWordLeft() {
         while (!allSeparators.contains(getChar())) {
             if (--position < 0) {
@@ -210,7 +199,6 @@ public class Text {
             }
         }
     }
-
     private List<Fragment> fragments = new ArrayList<>();
     private int endOfPreviousFragment = 0;
     private int position;

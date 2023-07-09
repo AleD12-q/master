@@ -38,11 +38,9 @@ public class IndexRepositoryImpl implements IndexRepositoryCustom {
             Query query = entityManager.createNativeQuery(sql);
             query.executeUpdate();
             if (currIndex % SAVING_PORTION == 0) {
-                log.info(TABS + "Сайт \"" + siteName + "\": " +
-                        "сохранено " + currIndex / ONE_THOUSAND + " тыс. индексов");
+                log.info(TABS + "Сайт \"" + siteName + "\": " + "сохранено " + currIndex / ONE_THOUSAND + " тыс. индексов");
             } else {
-                log.info(TABS + "Сайт \"" + siteName + "\": " +
-                        "сохранено " + currIndex + " индексов");
+                log.info(TABS + "Сайт \"" + siteName + "\": " + "сохранено " + currIndex + " индексов");
             }
         }
     }

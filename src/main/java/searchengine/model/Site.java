@@ -35,28 +35,23 @@ public class Site implements Serializable {
     private String name;
     @OneToMany(mappedBy = "site", fetch = FetchType.LAZY)
     private Set<Page> pages = new HashSet<>();
-
     @OneToMany(mappedBy = "site", fetch = FetchType.LAZY)
     private Set<Lemma> lemmas = new HashSet<>();
     public String getLastError() {
         return lastError == null ? "" : lastError;
     }
-
     @Transient
     private SiteBuilder siteBuilder;
     @Transient
     private Long lastPageReadingTime = 0L;
-
     @Override
     public String toString() {
         return "id: " + id + ", url: " + url + ", name: " + name;
     }
-
     @Override
     public int hashCode() {
         return url.hashCode();
     }
-
     @Override
     public boolean equals(Object obj) {
         return obj.getClass() == Site.class;

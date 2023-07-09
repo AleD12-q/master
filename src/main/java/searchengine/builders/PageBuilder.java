@@ -15,10 +15,8 @@ import java.util.Map;
 @Slf4j
 public class PageBuilder implements Runnable {
     public static final String OK = "OK";
-    public static final String NOT_FOUND = "\"Данная страница находится за пределами сайтов, " +
-            "указанных в конфигурационном файле";
-    public static final String SITE_NOT_INDEXED = "Нельзя индексировать страницу " +
-            "сайта, если сайт ещё не индексирован";
+    public static final String NOT_FOUND = "\"Данная страница находится за пределами сайтов, указанных в конфигурационном файле";
+    public static final String SITE_NOT_INDEXED = "Нельзя индексировать страницу сайта, если сайт ещё не индексирован";
     public static final String RUNNING = "Индексация уже запущена";
 
     private final Site site;
@@ -44,7 +42,6 @@ public class PageBuilder implements Runnable {
         page.setContent(doc.outerHtml());
         page.setPath(pagePath);
     }
-
     @Override
     public void run() {
         log.info("Проиндексирована страница " + site.getUrl() + page.getPath());
@@ -98,7 +95,6 @@ public class PageBuilder implements Runnable {
                 }
             }
         }
-
         SiteBuilder.getIndexingSites().remove(site.getUrl());
     }
 
@@ -134,7 +130,6 @@ public class PageBuilder implements Runnable {
             SiteBuilder.getIndexingSites().put(site.getUrl(), site);
             pageBuilder.run();
         }
-
         return OK;
     }
 }

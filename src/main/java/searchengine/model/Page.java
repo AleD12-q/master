@@ -24,22 +24,18 @@ public class Page implements Serializable {
     private int code;
     @Column(columnDefinition = "mediumtext", nullable = false)
     private String content;
-
     @Transient
     private String title;
-
     @Override
     public int hashCode() {
         return path != null && site != null ? path.hashCode() + site.hashCode() : 0;
     }
-
     @Override
     public boolean equals(Object obj) {
         Page p = (Page) obj;
         return site == null ||
                 getClass() == obj.getClass() && path.equals(p.path) && site == p.site;
     }
-
     @Override
     public String toString() {
         return "id: " + id + ", siteId: " + site.getId() + ", path: " + path;

@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import searchengine.response.Response;
-import searchengine.search.SearchListen;
+import searchengine.search.SearchListener;
 import searchengine.search.SearchRequest;
 import searchengine.response.ErrorResponse;
-import searchengine.response.SearchRes;
+import searchengine.response.SearchResponse;
 
 @Slf4j
 @RestController
@@ -29,14 +29,14 @@ public class SearchController {
     }
 
     private Response receiveResponse(SearchRequest request) {
-        SearchRes response;
+        SearchResponse response;
         try {
-            SearchListen.getRequestQueue().put(request);
+            SearchListener.getRequestQueue().put(request);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         try {
-            response = SearchListen.getResponseQueue().take();
+            response = SearchListener.getResponseQueue().take();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

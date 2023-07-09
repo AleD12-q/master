@@ -32,7 +32,6 @@ public class IndexingController {
         }
         return new Response();
     }
-
     @GetMapping("/stopIndexing")
     public Response stopIndexing() {
         boolean isIndexing = SiteBuilder.stopIndexing();

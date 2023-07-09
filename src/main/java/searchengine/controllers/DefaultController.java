@@ -7,11 +7,6 @@ import searchengine.config.ServerConfig;
 
 @Controller
 public class DefaultController {
-    /**
-     * Метод формирует страницу из HTML-файла index.html,
-     * который находится в папке resources/templates.
-     * Это делает библиотека Thymeleaf.
-     */
     private final ServerConfig serverConfig;
 
     public DefaultController(ServerConfig serverConfig) {

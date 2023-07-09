@@ -2,11 +2,11 @@ package searchengine.search;
 
 import lombok.extern.slf4j.Slf4j;
 import searchengine.model.Index;
+import searchengine.model.Page;
 import searchengine.model.Site;
 import searchengine.repository.Repos;
-import searchengine.model.Page;
 import searchengine.response.PageData;
-import searchengine.response.SearchRes;
+import searchengine.response.SearchResponse;
 
 
 import java.util.*;
@@ -15,21 +15,20 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Slf4j
-public class ResponseBuilder implements Runnable {
-    private static final Map<SearchRequest, SearchRes> responses = new ConcurrentHashMap<>();
+public class SearchResponseBuilder implements Runnable {
+    private static final Map<SearchRequest, SearchResponse> responses = new ConcurrentHashMap<>();
     private static final ExecutorService executor = Executors.newCachedThreadPool();
 
     private final SearchRequest request;
-    private final SearchRes response;
+    private final SearchResponse response;
     private Site site = null;
     private final List<LemmaFrequency> lemmaFrequencies = new ArrayList<>();
     private Set<PageRelevance> relevanceSet;
-    private final Map<Integer, PageRelevance> relevanceMap = new HashMap<>();
+    private final Map<Integer /*page.id*/, PageRelevance> relevanceMap = new HashMap<>();
     private List<PageRelevance> relevanceList;
-    private LemmaRank LemmaRank;
 
 
-    public ResponseBuilder(SearchRequest request) {
+    public SearchResponseBuilder(SearchRequest request) {
         this.request = request;
         response = responses.get(request);
     }
@@ -43,16 +42,16 @@ public class ResponseBuilder implements Runnable {
         request.setReady(true);
     }
 
-    public static SearchRes receiveResponse(SearchRequest request) {
+    public static SearchResponse receiveResponse(SearchRequest request) {
         removeOldResponses();
 
         request.setLastTime(System.currentTimeMillis() / 1000);
 
-        SearchRes response = responses.get(request);
+        SearchResponse response = responses.get(request);
         if (response == null) {
-            response = new SearchRes();
+            response = new SearchResponse();
             responses.put(request, response);
-            Runnable builder = new ResponseBuilder(request);
+            Runnable builder = new SearchResponseBuilder(request);
             executor.execute(builder);
         } else {
             responses.put(request, response);
@@ -83,7 +82,7 @@ public class ResponseBuilder implements Runnable {
     }
 
     private static void removeOldResponses() {
-        for (Map.Entry<SearchRequest, SearchRes> entry : responses.entrySet()) {
+        for (Map.Entry<SearchRequest, SearchResponse> entry : responses.entrySet()) {
             long currentTime = System.currentTimeMillis() / 1000;
             if (currentTime - entry.getKey().getLastTime() > 90) {
                 responses.remove(entry.getKey());
@@ -91,8 +90,8 @@ public class ResponseBuilder implements Runnable {
         }
     }
 
-    private static SearchRes formPartialResponse(SearchRequest request, SearchRes response) {
-        SearchRes partialResponse = new SearchRes();
+    private static SearchResponse formPartialResponse(SearchRequest request, SearchResponse response) {
+        SearchResponse partialResponse = new SearchResponse();
         partialResponse.setCount(response.getCount());
         for (int index = request.getOffset();
              index < request.getOffset() + request.getLimit(); index++) {
@@ -155,7 +154,7 @@ public class ResponseBuilder implements Runnable {
                 relevanceMap.put(index.getPage().getId(), relevance);
             }
             LemmaRank lemmaRank = new LemmaRank(lemma, index.getRank());
-            relevance.getLemmaRanks().add(LemmaRank);
+            relevance.getLemmaRanks().add(lemmaRank);
         }
         relevanceSet = new HashSet<>(relevanceMap.values());
     }

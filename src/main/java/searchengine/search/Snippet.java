@@ -18,7 +18,6 @@ public class Snippet {
         this.page = page;
         this.queryWords = queryWords;
     }
-
     public String formSnippet() {
         Document doc = Jsoup.parse(page.getContent());
         StringBuilder builder = new StringBuilder();

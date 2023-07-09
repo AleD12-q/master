@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class Lemmaformatter {
-    public static final String WORD_SEPARATORS =
-            "\\s*(\\s|,|;|\\?|-|–|—|\\[|]|\\{|}|«|»|'|'|`|\"|!|\\.|\\(|\\))\\s*";
+    public static final String WORD_SEPARATORS = "\\s*(\\s|,|;|\\?|-|–|—|\\[|]|\\{|}|«|»|'|'|`|\"|!|\\.|\\(|\\))\\s*";
     private final static LuceneMorphology morphology;
 
     static {
@@ -51,7 +50,6 @@ public class Lemmaformatter {
         }
         return result;
     }
-
     private static String morphInfoToLemma(String morphInfo) {
         int pos = morphInfo.indexOf('|');
         if (pos < 0) {

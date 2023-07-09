@@ -1,5 +1,6 @@
 package searchengine.search;
 import lombok.Data;
+
 @Data
 public class LemmaRank {
     private String lemma;

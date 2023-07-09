@@ -39,7 +39,6 @@ public class Props {
         }
         return inst;
     }
-
     public static void init() {
         for (SiteProps sun : inst.sites) {
             URL url;
@@ -51,7 +50,6 @@ public class Props {
             sun.setUrl(url.getProtocol() + "://" + url.getHost());
         }
     }
-
     public static List<String> getAllSiteUrls() {
         List<String> siteUrls = new ArrayList<>();
         List<SiteProps> urlNames = Props.getInst().getSites();
@@ -65,7 +63,6 @@ public class Props {
         private String url;
         private String name;
         private int pause;
-
         public static String getNameByUrl(String url) {
             SiteProps siteProps = Props.inst.sites.stream()
                     .filter(siteUrlName -> siteUrlName.getUrl().equals(url))
