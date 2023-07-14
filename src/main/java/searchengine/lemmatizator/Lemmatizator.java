@@ -1,4 +1,4 @@
-package searchengine.builders;
+package searchengine.lemmatizator;
 
 import org.apache.lucene.morphology.LuceneMorphology;
 import org.apache.lucene.morphology.russian.RussianLuceneMorphology;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class Lemmaformatter {
+public class Lemmatizator {
     public static final String WORD_SEPARATORS = "\\s*(\\s|,|;|\\?|-|–|—|\\[|]|\\{|}|«|»|'|'|`|\"|!|\\.|\\(|\\))\\s*";
     private final static LuceneMorphology morphology;
 
@@ -18,7 +18,6 @@ public class Lemmaformatter {
             throw new RuntimeException(e);
         }
     }
-
     public static List<String> decomposeTextToLemmas(String text) {
         List<String> result = new ArrayList<>();
         String[] words = text.split(WORD_SEPARATORS);
@@ -34,7 +33,6 @@ public class Lemmaformatter {
         }
         return result;
     }
-
     public static List<String> processOneWord(String word) {
         List<String> result = new ArrayList<>();
         word = word.toLowerCase(Locale.ROOT)

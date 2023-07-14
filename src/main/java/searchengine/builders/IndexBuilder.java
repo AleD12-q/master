@@ -6,6 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import searchengine.lemmatizator.Lemmatizator;
 import searchengine.model.*;
 import searchengine.repository.Repos;
 
@@ -73,7 +74,7 @@ public class IndexBuilder {
             Elements elements = doc.getElementsByTag(field.getSelector());
             for (Element element : elements) {
                 String text = element.text();
-                List<String> lemmaNames = Lemmaformatter.decomposeTextToLemmas(text);
+                List<String> lemmaNames = Lemmatizator.decomposeTextToLemmas(text);
                 for (String lemmaName : lemmaNames) {
                     insertIntoLemmasAndIndices(lemmaName, field.getWeight());
                 }

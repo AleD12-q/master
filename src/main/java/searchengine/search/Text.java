@@ -1,6 +1,6 @@
 package searchengine.search;
 import lombok.Data;
-import searchengine.builders.Lemmaformatter;
+import searchengine.lemmatizator.Lemmatizator;
 
 import java.util.*;
 @Data
@@ -36,14 +36,14 @@ public class Text {
             Arrays.asList('.', '!', '?', ' ', ',', ';', '-', '–', '—'));
 
     public void defineQueryWordIndices(List<String> queryWords) {
-        String[] contentWords = text.split(Lemmaformatter.WORD_SEPARATORS);
+        String[] contentWords = text.split(Lemmatizator.WORD_SEPARATORS);
         StringBuilder builder = new StringBuilder();
         int indexInText = 0;
         for (String contentWord : contentWords) {
             if (contentWord.isEmpty()) {
                 continue;
             }
-            List<String> contentForms = Lemmaformatter.processOneWord(contentWord);
+            List<String> contentForms = Lemmatizator.processOneWord(contentWord);
             for (String form : contentForms) {
                 if (queryWords.contains(form)) {
                     int index = text.indexOf(contentWord, indexInText);

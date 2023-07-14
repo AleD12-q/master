@@ -1,6 +1,6 @@
 package searchengine.search;
 import lombok.Data;
-import searchengine.builders.Lemmaformatter;
+import searchengine.lemmatizator.Lemmatizator;
 import searchengine.model.Site;
 import searchengine.repository.Repos;
 
@@ -34,7 +34,7 @@ public class SearchRequest {
     }
 
     public SearchRequest buildRequest(String query, String siteUrl, Integer offset, Integer limit) {
-        queryWords = Lemmaformatter.decomposeTextToLemmas(query);
+        queryWords = Lemmatizator.decomposeTextToLemmas(query);
         if (queryWords.isEmpty()) {
             return null;
         }
