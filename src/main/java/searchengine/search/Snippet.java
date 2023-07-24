@@ -12,7 +12,7 @@ import java.util.List;
 public class Snippet {
     private final Page page;
     private final List<String> queryWords;
-    private final List<Text> ownTexts = new ArrayList<>();
+    private final List<OwnText> ownTexts = new ArrayList<>();
 
     public Snippet(Page page, List<String> queryWords) {
         this.page = page;
@@ -30,7 +30,7 @@ public class Snippet {
                 continue;
             }
             createOwnTexts(element);
-            for (Text ownText : ownTexts) {
+            for (OwnText ownText : ownTexts) {
                 ownText.defineQueryWordIndices(queryWords);
                 if (ownText.containsQueryWords()) {
                     ownText.createFragments();
@@ -44,7 +44,7 @@ public class Snippet {
     private void createOwnTexts(Element element) {
         String ownText = element.ownText();
         if (!ownText.isEmpty()) {
-            ownTexts.add(new Text(ownText));
+            ownTexts.add(new OwnText(ownText));
         }
         for (Element child : element.children()) {
             createOwnTexts(child);

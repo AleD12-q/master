@@ -4,7 +4,7 @@ import searchengine.lemmatizator.Lemmatizator;
 
 import java.util.*;
 @Data
-public class Text {
+public class OwnText {
     public static final int SEPARATORS_BEFORE_COUNT = 5;
     public static final int SEPARATORS_AFTER_COUNT = 5;
     public static final String BOLD_BEGIN = "<b>";
@@ -20,7 +20,7 @@ public class Text {
     private String text;
     private List<Integer> queryWordIndices = new ArrayList<>();
 
-    public Text(String text) {
+    public OwnText(String text) {
         this.text = text;
     }
 
