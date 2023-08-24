@@ -3,23 +3,11 @@
 
     var px = ''; //'rt--'
 
-    /**
-     * Функция для вывода набора jQuery по селектору, к селектору добавляются
-     * префиксы
-     *
-     * @param {string} selector Принимает селектор для формирования набора
-     * @return {jQuery} Возвращает новый jQuery набор по выбранным селекторам
-     */
     function $x(selector) {
         return $(x(selector));
     }
 
-    /**
-     * Функция для автоматического добавления префиксов к селекторы
-     *
-     * @param {string} selector Принимает селектор для формирования набора
-     * @return {string} Возвращает новый jQuery набор по выбранным селекторам
-     */
+
     function x(selector) {
         var arraySelectors = selector.split('.'),
             firstNotClass = !!arraySelectors[0];
@@ -82,7 +70,6 @@ var form = function(){
                 }
             });
             
-            // Валидация полей
             $input.on('blur', function(){
                 var $this = $(this),
                     validate = $this.data('validate'),
@@ -174,14 +161,6 @@ var menu = function(){
     var $body = $('body');
     function refresh(){
         if (window.innerWidth<991) {
-            // $('.menuModal').each(function(){
-            //     var $this = $(this);
-            //     setTimeout(function(){
-            //         if ($this.attr('height') > 0) {
-            //             $this.css('height', 0);
-            //         }
-            //     }, 100);
-            // });
             $('.menuModal').css('height', 0);
             $menuMain.css('position', 'absolute');
             menuHeight = $('.menu_main').outerHeight();
@@ -200,7 +179,6 @@ var menu = function(){
         init: function(){
             if (window.innerWidth<991) {
             $(".menuModal").css('height', menuHeight);
-            // Меню для мобильных
                 $(".menuTrigger").each(function () {
                     $($(this).attr('href')).css('height', 0);
                 });
@@ -278,6 +256,7 @@ var API = function(){
                 }
             }
         },
+       
         stopIndexing: {
             address: '/stopIndexing',
             type: 'GET',
@@ -615,7 +594,6 @@ var HideBlock = function(){
     return {
         init: function(){
             $trigger.on('click', clickHide);
-            // $HideBlock.eq(0).find($trigger).trigger('click');
         },
         trigger: clickHide
     };
