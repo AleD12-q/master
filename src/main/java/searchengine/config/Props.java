@@ -50,6 +50,7 @@ public class Props {
             sun.setUrl(url.getProtocol() + "://" + url.getHost());
         }
     }
+    //Собирает все ссылки сайтов
     public static List<String> getAllSiteUrls() {
         List<String> siteUrls = new ArrayList<>();
         List<SiteProps> urlNames = Props.getInst().getSites();
